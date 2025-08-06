@@ -52,6 +52,7 @@
                     <img src="spiral-transparent.svg" alt="MIDSPIRAL" class="logo">
                     <h1 class="logo">MIDSPIRAL</h1>
                     <p class="tagline">Unlocking the future of programming</p>
+                    <button class="vision-link" onclick="toggleVision()">Our Vision</button>
                 </div>
             </header>
         </div>
@@ -61,5 +62,27 @@
             <p class="email">hello@midspiral.com</p>
         </div>
     </div>
+    
+    <!-- Vision Modal -->
+    <div id="visionModal" class="vision-modal">
+        <div class="vision-content">
+            <button class="vision-close" onclick="toggleVision()">×</button>
+            <p class="vision-text">What if the entire software stack existed as semantic constraints rather than imperative code? What if correctness could be guaranteed through symbolic validation? What if anyone could build complex, robust systems through natural language?</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleVision() {
+            const modal = document.getElementById('visionModal');
+            modal.classList.toggle('active');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('visionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleVision();
+            }
+        });
+    </script>
 </body>
 </html> 

@@ -134,6 +134,93 @@ p {
 
 }
 
+.vision-link {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 4s ease-out 1.2s forwards;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.vision-link:hover {
+    text-decoration-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+/* Vision Modal */
+.vision-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.vision-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.vision-content {
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(20, 20, 20, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 3rem;
+    max-width: 600px;
+    margin: 2rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.vision-modal.active .vision-content {
+    transform: translateY(0);
+}
+
+.vision-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.vision-close:hover {
+    opacity: 1;
+}
+
+.vision-text {
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--text-color);
+    margin: 0;
+}
+
 .email {
     font-weight: 200;
     opacity: 0;
@@ -200,5 +287,22 @@ p {
         text-align: center;
         letter-spacing: 2px;
         margin-top: 10px;
+    }
+    
+    .vision-link {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+        margin-top: 0.8rem;
+    }
+    
+    .vision-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        max-width: 90%;
+    }
+    
+    .vision-text {
+        font-size: 0.9rem;
+        line-height: 1.7;
     }
 } 
