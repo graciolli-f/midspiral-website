@@ -13,6 +13,53 @@
     --secondary-color: #4ab0eb;
 }
 
+/* Banner styles */
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, rgba(74, 176, 235, 0.1), rgba(100, 108, 255, 0.1));
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    padding: 12px 0;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.banner-link {
+    text-decoration: none;
+    color: var(--text-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.banner-link:hover {
+    opacity: 1;
+    color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.banner-text {
+    font-weight: 300;
+}
+
+.banner-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.banner-link:hover .banner-arrow {
+    transform: translateX(3px);
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-color);
@@ -125,10 +172,20 @@ p {
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
+    .banner {
+        padding: 10px 0;
+    }
+    
+    .banner-link {
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+    
     .full-page {
         padding: 40px 0;
         height: 100vh;
         overflow: hidden;
+        padding-top: 60px; /* Account for fixed banner */
     }
 
     .logo {
