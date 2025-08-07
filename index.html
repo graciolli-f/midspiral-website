@@ -36,6 +36,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <script src="config.js"></script>
 </head>
 
 <body>
@@ -66,8 +67,58 @@
     <!-- Vision Modal -->
     <div id="visionModal" class="vision-modal">
         <div class="vision-content">
-            <button class="vision-close" onclick="toggleVision()">×</button>
-            <p class="vision-text">What if the entire software stack existed as semantic constraints rather than imperative code? What if correctness could be guaranteed through symbolic validation? What if anyone could build complex, robust systems through natural language?</p>
+            <h2 class="vision-title">3 Questions, 1 Vision</h2>
+            <div class="vision-text">
+                <div class="vision-question">
+                    <span class="question-number">01</span>
+                    <p>What if the entire software stack existed as semantic constraints rather than imperative code?</p>
+                </div>
+                <div class="vision-question">
+                    <span class="question-number">02</span>
+                    <p>What if correctness could be guaranteed through symbolic validation?</p>
+                </div>
+                <div class="vision-question">
+                    <span class="question-number">03</span>
+                    <p>What if anyone could build complex, robust systems through natural language?</p>
+                </div>
+            </div>
+            <div class="vision-actions">
+                <div id="mailerlite-form" class="ml-form-embedContainer ml-subscribe-form">
+                    <div class="ml-form-align-center">
+                        <div class="ml-form-embedWrapper embedForm">
+                            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                                <div class="ml-form-embedContent">
+                                    <p>Does this intrigue you?</p>
+                                </div>
+                                <form class="ml-block-form" id="ml-form" action="" data-code="" method="post" target="_blank">
+                                    <div class="ml-form-formContent">
+                                        <div class="ml-form-fieldRow ml-last-item">
+                                            <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                                                <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Enter your email" autocomplete="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="ml-submit" value="1">
+                                    <div class="ml-form-embedSubmit">
+                                        <button type="submit" class="primary">Stay Updated</button>
+                                        <button disabled="disabled" style="display: none;" type="button" class="loading">
+                                            <div class="ml-form-embedSubmitLoad"></div>
+                                            <span class="sr-only">Loading...</span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="anticsrf" value="true">
+                                </form>
+                            </div>
+                            <div class="ml-form-successBody row-success" style="display: none">
+                                <div class="ml-form-successContent">
+                                    <h4>Thank you!</h4>
+                                    <p>You have successfully joined our subscriber list.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -83,6 +134,42 @@
                 toggleVision();
             }
         });
+        
+        // Initialize MailerLite form with config
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.CONFIG && window.CONFIG.MAILERLITE) {
+                const formId = window.CONFIG.MAILERLITE.FORM_ID;
+                const containerId = window.CONFIG.MAILERLITE.FORM_CONTAINER_ID;
+                
+                // Update form action
+                const form = document.getElementById('ml-form');
+                if (form) {
+                    form.action = `https://assets.mailerlite.com/jsonp/1719612/forms/${formId}/subscribe`;
+                }
+                
+                // Update container classes and IDs
+                const container = document.getElementById('mailerlite-form');
+                if (container) {
+                    container.id = `mlb2-${containerId}`;
+                    container.classList.add(`ml-subscribe-form-${containerId}`);
+                }
+            }
+        });
+        
+        // MailerLite success handler (will be called dynamically)
+        function ml_webform_success_29314228() {
+            var $ = ml_jQuery || jQuery;
+            $('.ml-subscribe-form-29314228 .row-success').show();
+            $('.ml-subscribe-form-29314228 .row-form').hide();
+        }
+    </script>
+    
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        // Load MailerLite form data using config
+        if (window.CONFIG && window.CONFIG.MAILERLITE) {
+            fetch(`https://assets.mailerlite.com/jsonp/1719612/forms/${window.CONFIG.MAILERLITE.FORM_ID}/takel`)
+        }
     </script>
 </body>
 </html> 
