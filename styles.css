@@ -344,15 +344,14 @@ p {
     gap: 8px;
     align-items: center;
     justify-content: center;
-    max-width: 400px;
+    width: 100%;
     margin: 0 auto;
 }
 
 #mlb2-29314228.ml-form-fieldRow {
     margin: 0;
-    width: 100%;
-    flex: 1;
-    max-width: 250px;
+    width: 400px;
+    flex: none;
 }
 
 #mlb2-29314228.ml-form-embedContainer .ml-form-fieldRow input {
@@ -368,9 +367,9 @@ p {
     line-height: 1.4 !important;
     margin: 0;
     padding: 0 12px !important;
-    width: 100% !important;
+    width: 400px !important;
     box-sizing: border-box !important;
-    max-width: 100% !important;
+    max-width: none !important;
     transition: all 0.3s ease;
 }
 
