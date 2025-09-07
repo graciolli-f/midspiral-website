@@ -8,7 +8,7 @@
 :root {
     /* Color variables */
     --bg-color: #0a0a0a;
-    --text-color: rgba(255, 255, 255, 0.9);
+    --text-color: #e0e0e0;
     --accent-color: #646cff;
     --secondary-color: #4ab0eb;
 }
@@ -506,6 +506,27 @@ p {
     letter-spacing: 0.3px;
 }
 
+.social-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 4s ease-out 1.0s forwards;
+    text-decoration-color: transparent;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.social-link:hover {
+    text-decoration-color: var(--secondary-color);
+    transform: translateY(-1px);
+    color: var(--text-color);
+}
+
 .email {
     font-weight: 200;
     opacity: 0;
@@ -693,5 +714,11 @@ p {
     .subscribe-button {
         padding: 0.7rem 1.2rem;
         font-size: 0.85rem;
+    }
+    
+    .social-link {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.8rem;
     }
 } 
