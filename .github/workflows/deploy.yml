@@ -1,0 +1,59 @@
+name: Deploy Site and Blog
+
+on:
+  push:
+    branches: [ main, blog ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: blog/package-lock.json
+    
+    - name: Install blog dependencies
+      run: |
+        cd blog
+        npm ci
+    
+    - name: Build blog
+      run: |
+        cd blog
+        npm run build
+    
+    - name: Prepare deployment directory
+      run: |
+        # Create a temporary deployment directory
+        mkdir -p deploy-temp
+        
+        # Copy main site files (excluding blog directory to avoid conflicts)
+        find . -maxdepth 1 -type f -exec cp {} deploy-temp/ \;
+        
+        # Copy specific directories but exclude problematic ones
+        for dir in */; do
+          if [[ "$dir" != "blog/" && "$dir" != ".github/" && "$dir" != "deploy-temp/" && "$dir" != ".git/" ]]; then
+            cp -r "$dir" deploy-temp/
+          fi
+        done
+        
+        # Create blog directory and copy built blog
+        mkdir -p deploy-temp/blog
+        cp -r blog/public/* deploy-temp/blog/
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/blog'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./deploy-temp
+        cname: midspiral.com
+
+
