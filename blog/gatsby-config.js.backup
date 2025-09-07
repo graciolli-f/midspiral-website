@@ -10,21 +10,27 @@
 module.exports = {
   pathPrefix: "/blog",
   siteMetadata: {
-    title: `MIDSPIRAL`,
+    title: `Gatsby Starter Blog`,
     author: {
-      name: `Fernanda Graciolli`,
-      summary: `creator of Rubric, founder of Midspiral.`,
+      name: `Kyle Mathews`,
+      summary: `who lives and works in San Francisco building useful things.`,
     },
-    description: `A blog about the future of AI programming.`,
-    siteUrl: `https://midspiral.com/updates`,
+    description: `A starter blog demonstrating what Gatsby can do.`,
+    siteUrl: `https://midspiral.com/blog`,
     social: {
-      twitter: `midspiral_ai`,
-      github: `graciolli-f/Rubric`,
-      linkedin: `company/midspiral`,
-      email: `hello@midspiral.com`,
+      twitter: `kylemathews`,
     },
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Montserrat:200,300,400,600,700`
+        ],
+        display: 'swap'
+      }
+    },
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -113,7 +119,7 @@ module.exports = {
               }
             }`,
             output: "/rss.xml",
-            title: "MIDSPIRAL RSS Feed",
+            title: "Gatsby Starter Blog RSS Feed",
           },
         ],
       },
@@ -121,8 +127,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `MIDSPIRAL`,
-        short_name: `MIDSPIRAL`,
+        name: `Gatsby Starter Blog`,
+        short_name: `Gatsby`,
         start_url: `/blog/`,
         background_color: `#ffffff`,
         // This will impact how browsers show your PWA/website

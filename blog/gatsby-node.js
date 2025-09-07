@@ -7,8 +7,9 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
-// Define the template for blog post
+// Define the template for blog post and updates
 const blogPost = path.resolve(`./src/templates/blog-post.js`)
+const updatePost = path.resolve(`./src/templates/update-post.js`)
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
@@ -16,14 +17,18 @@ const blogPost = path.resolve(`./src/templates/blog-post.js`)
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  // Get all markdown blog posts sorted by date
+  // Get all markdown blog posts and updates sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
+      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000, filter: { frontmatter: { published: { ne: false } } }) {
         nodes {
           id
           fields {
             slug
+          }
+          frontmatter {
+            type
+            published
           }
         }
       }
@@ -40,18 +45,37 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const posts = result.data.allMarkdownRemark.nodes
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
+  // Separate blog posts and updates
+  const blogPosts = posts.filter(post => post.frontmatter.type !== 'update')
+  const updatePosts = posts.filter(post => post.frontmatter.type === 'update')
 
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+  // Create blog posts pages
+  if (blogPosts.length > 0) {
+    blogPosts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : blogPosts[index - 1].id
+      const nextPostId = index === blogPosts.length - 1 ? null : blogPosts[index + 1].id
 
       createPage({
         path: post.fields.slug,
         component: blogPost,
+        context: {
+          id: post.id,
+          previousPostId,
+          nextPostId,
+        },
+      })
+    })
+  }
+
+  // Create update posts pages
+  if (updatePosts.length > 0) {
+    updatePosts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : updatePosts[index - 1].id
+      const nextPostId = index === updatePosts.length - 1 ? null : updatePosts[index + 1].id
+
+      createPage({
+        path: post.fields.slug,
+        component: updatePost,
         context: {
           id: post.id,
           previousPostId,
@@ -116,6 +140,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      type: String
+      published: Boolean
     }
 
     type Fields {
